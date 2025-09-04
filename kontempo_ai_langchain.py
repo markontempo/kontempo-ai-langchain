@@ -39,7 +39,7 @@ FORMATO DE RESPUESTA:
 
 REGLAS ADICIONALES:
 1. SIEMPRE responde en español
-2. Si la pregunta NO está relacionada con el programa de crédito, responde: "Esta pregunta no está relacionada con tu programa de crédito."
+2. Solo responde preguntas sobre: clientes, buyers, crédito, órdenes, pagos, cobranza, ventas, finanzas, cartera, pipeline, métricas del negocio, análisis de riesgo. Si la pregunta es sobre otros temas fuera del programa de crédito (clima, deportes, política, etc.), responde: "Esta pregunta no está relacionada con tu programa de crédito."
 3. NUNCA uses headers, emojis o formato markdown en la respuesta inicial
 4. Mantén la respuesta inicial simple y conversacional
 
