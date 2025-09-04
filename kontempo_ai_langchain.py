@@ -17,84 +17,110 @@ import json
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Sistema de prompt
-SYSTEM_PROMPT = """Eres un asistente especializado para usuarios del dashboard de merchants de Kontempo.
+SYSTEM_PROMPT = """Eres un asistente especializado para usuarios del dashboard de Kontempo.
 
 CONTEXTO:
-- Kontempo es un SaaS que ayuda a merchants a manejar programas de crédito
-- Tú ayudas a los usuarios del dashboard a entender y gestionar su programa de crédito
+- Kontempo es un SaaS para manejar programas de crédito
+- Ayudas a merchants a analizar sus datos de clientes, órdenes y pagos
 
 ESTRUCTURA DE DATOS:
-- buyers[] = Los clientes/buyers del merchant que usan el crédito
-- orders[] = Transacciones/órdenes hechas por los buyers
-- payouts[] = Pagos recibidos por el merchant (sus ingresos)
-- payment_links[] = Links de pago pendientes (pipeline de ventas)
+- buyers[] = clientes con diferentes approval_status
+- orders[] = transacciones realizadas
+- payouts[] = pagos recibidos por el merchant
+- payment_links[] = ventas pendientes
 
-REGLA PRINCIPAL DE RESPUESTA:
-Para TODAS las preguntas, responde primero de manera CONCISA y DIRECTA (máximo 1-2 oraciones), luego pregunta si desea más detalles.
+ANÁLISIS DE CLIENTES - STATUS DISPONIBLES:
+Los buyers tienen estos approval_status posibles:
+- "active": Cliente aprobado y activo para crédito
+- "pending": Cliente en proceso de aprobación
+- "rejected": Cliente rechazado para crédito
+- "suspended": Cliente suspendido temporalmente
 
-FORMATO DE RESPUESTA:
-[RESPUESTA DIRECTA EN 1-2 ORACIONES]
+CAPACIDADES QUE TIENES:
+✅ Listar clientes por status de aprobación
+✅ Mostrar métricas de cartera y crédito
+✅ Analizar performance de pagos
+✅ Reportes de órdenes y cobranza
+✅ Análisis de pipeline de ventas
+✅ Segmentación de clientes activos/pendientes/rechazados
 
-¿Te gustaría que profundice en algún aspecto específico?
-
-REGLAS ADICIONALES:
+REGLAS DE RESPUESTA:
 1. SIEMPRE responde en español
-2. Solo responde preguntas sobre: clientes, buyers, crédito, órdenes, pagos, cobranza, ventas, finanzas, cartera, pipeline, métricas del negocio, análisis de riesgo. Si la pregunta es sobre otros temas fuera del programa de crédito (clima, deportes, política, etc.), responde: "Esta pregunta no está relacionada con tu programa de crédito."
-3. NUNCA uses headers, emojis o formato markdown en la respuesta inicial
-4. Mantén la respuesta inicial simple y conversacional
+2. Para consultas de datos (listas, métricas), proporciona la información directamente
+3. Sé conciso inicialmente, luego pregunta si quieren más detalles
+4. SOLO rechaza preguntas no relacionadas con: clientes, crédito, ventas, pagos, cobranza, cartera
 
-SOLO si el usuario pide "más detalles", "análisis completo" o algo similar, entonces proporciona el análisis extenso con headers y métricas.
+EJEMPLOS DE CONSULTAS VÁLIDAS:
+- "Enlista los clientes por status"
+- "¿Cuántos clientes activos tengo?"
+- "Muéstrame los clientes pendientes de aprobación"
+- "¿Cuál es mi cartera vencida?"
+- "Lista de órdenes pagadas tarde"
 
-TEMAS VÁLIDOS: Programa de crédito, clientes, cartera, órdenes, pagos, cobranza, ventas, pipeline, riesgo, ROI, métricas financieras."""
+FORMATO DE RESPUESTA PARA LISTAS:
+Cuando te pidan listar clientes por status, organiza así:
+**ACTIVOS (X):**
+- Nombre Cliente 1
+- Nombre Cliente 2
+
+**PENDIENTES (X):**
+- Nombre Cliente 3
+
+**RECHAZADOS (X):**
+- Nombre Cliente 4
+"""
 
 def summarize_merchant_data(data: Dict) -> str:
-    """Resumir datos del merchant para contexto de GPT"""
     try:
         buyers = data.get('buyers', [])
-        orders = data.get('orders', [])
-        payouts = data.get('payouts', [])
-        payment_links = data.get('payment_links', [])
-
-        # Calcular métricas clave
-        active_clients = [b for b in buyers if b.get('approval_status') == 'active']
-        total_credit_issued = sum(b.get('credit', {}).get('credit_limit', 0) for b in active_clients)
-        total_credit_used = sum(b.get('credit', {}).get('credit_used', 0) for b in active_clients)
-        utilization = (total_credit_used / total_credit_issued * 100) if total_credit_issued > 0 else 0
-
-        # Análisis de pagos vencidos
-        overdue_orders = [o for o in orders if o.get('payment_status') == 'due']
-        total_overdue = sum(o.get('amount', 0) for o in overdue_orders)
-
-        # Ingresos y pipeline
-        total_revenue = sum(p.get('amount', 0) for p in payouts)
-        total_pipeline = sum(l.get('cart_total', 0) for l in payment_links)
+        
+        # Agrupar clientes por status
+        status_groups = {}
+        for buyer in buyers:
+            status = buyer.get('approval_status', 'unknown')
+            if status not in status_groups:
+                status_groups[status] = []
+            status_groups[status].append({
+                'name': buyer.get('display_name', 'Sin nombre'),
+                'email': buyer.get('email', ''),
+                'credit_limit': buyer.get('credit', {}).get('credit_limit', 0)
+            })
 
         summary = f"""
 RESUMEN DEL PROGRAMA DE CRÉDITO:
 
-MÉTRICAS GENERALES:
-- Clientes activos: {len(active_clients)}
-- Crédito total otorgado: ${total_credit_issued:,.2f}
-- Crédito utilizado: ${total_credit_used:,.2f} ({utilization:.1f}% utilización)
-- Crédito disponible: ${total_credit_issued - total_credit_used:,.2f}
-
-PERFORMANCE FINANCIERA:
-- Ingresos totales: ${total_revenue:,.2f}
-- Total órdenes: {len(orders)}
-
-ANÁLISIS DE RIESGO:
-- Órdenes vencidas: {len(overdue_orders)}
-- Monto en riesgo: ${total_overdue:,.2f}
-
-PIPELINE DE VENTAS:
-- Links pendientes: {len(payment_links)}
-- Valor del pipeline: ${total_pipeline:,.2f}
+CLIENTES POR STATUS DE APROBACIÓN:
 """
-
+        
+        for status, clients in status_groups.items():
+            status_name = {
+                'active': 'ACTIVOS',
+                'pending': 'PENDIENTES', 
+                'rejected': 'RECHAZADOS',
+                'suspended': 'SUSPENDIDOS'
+            }.get(status, status.upper())
+            
+            summary += f"{status_name} ({len(clients)}):\n"
+            for client in clients:
+                summary += f"  • {client['name']}\n"
+            summary += "\n"
+        
+        # Resto de métricas...
+        orders = data.get('orders', [])
+        payouts = data.get('payouts', [])
+        
+        total_revenue = sum(p.get('amount', 0) for p in payouts)
+        summary += f"""
+MÉTRICAS GENERALES:
+- Total clientes: {len(buyers)}
+- Ingresos totales: ${total_revenue:,.2f}
+- Órdenes procesadas: {len(orders)}
+"""
+        
         return summary
 
     except Exception as e:
-        return f"Error resumiendo datos: {str(e)}"
+        return f"Error procesando datos: {str(e)}"
 
 # Crear el chain de LangChain
 def create_kontempo_chain():
