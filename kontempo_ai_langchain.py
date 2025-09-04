@@ -229,22 +229,344 @@ async def test_endpoint(request_data: Dict):
         "context": {
             "buyers": [
                 {
-                    "buyer_account": "buy_123",
-                    "display_name": "Test Client",
-                    "approval_status": "active",
-                    "credit": {"credit_limit": 100000, "credit_used": 50000}
+                "buyer_account": "buy_6978320898.8846",
+                "display_name": "DIBAR NUTRICIONAL SRL DE CV",
+                "email": "direccion@laboratoriosdibar.com",
+                "phone": "+18324999960",
+                "approval_status": "active",
+                "credit": {
+                    "credit_limit": 0,
+                    "credit_used": 0
+                },
+                "address": {
+                    "street": "AV TRES MARIAS",
+                    "external_number": "455",
+                    "internal_number": "17",
+                    "area": "Orquídeas",
+                    "city": "Morelia",
+                    "state": "Michoacán de Ocampo",
+                    "postal_code": "58254",
+                    "country": "Mexico"
+                },
+                "rfc_id": "DNU1306241HA",
+                "foundation_date": 2013,
+                "order_count": 167
+                },
+                {
+                "buyer_account": "buy_6796692618.2490",
+                "display_name": "Primeprotein",
+                "email": "osnaya.adriana.mercado@gmail.com",
+                "phone": "+525531407018",
+                "approval_status": "rejected",
+                "credit": {
+                    "credit_limit": 0,
+                    "credit_used": 0
+                },
+                "address": {
+                    "street": "Jilguero",
+                    "external_number": "65",
+                    "area": "Bellavista",
+                    "city": "Álvaro Obregón",
+                    "state": "Ciudad de México",
+                    "postal_code": "01140",
+                    "country": "Mexico"
+                },
+                "rfc_id": "PNH140311GZ4",
+                "foundation_date": 2014,
+                "sub_status": "credit_analysis"
+                },
+                {
+                "buyer_account": "buy_6540029417.3229",
+                "display_name": "temp_1d1928311f484c85ad8e4986919dc98d",
+                "email": "compras@healthylab.com.mx",
+                "phone": "+528445426883",
+                "approval_status": "pending",
+                "credit": {
+                    "credit_limit": 0,
+                    "credit_used": 0
+                },
+                "rfc_id": "RFC-00000",
+                "sub_status": "additional_information_required"
+                },
+                {
+                "buyer_account": "buy_2693382568.6016",
+                "display_name": "Laboratorios Solfran",
+                "email": "compras2@solfran.com",
+                "phone": "+523335703879",
+                "approval_status": "pending",
+                "credit": {
+                    "credit_limit": 0,
+                    "credit_used": 0
+                },
+                "address": {
+                    "street": "CALLE ALTOS HORNOS",
+                    "external_number": "2721",
+                    "area": "El Álamo",
+                    "city": "San Pedro Tlaquepaque",
+                    "state": "Jalisco",
+                    "postal_code": "45560",
+                    "country": "Mexico"
+                },
+                "rfc_id": "LSO741128J68",
+                "foundation_date": 1974,
+                "requested_amount": 200000,
+                "annual_revenue_current_year": 480000000,
+                "sub_status": "additional_information_required"
+                },
+                {
+                "buyer_account": "buy_8798244248.1389",
+                "display_name": "INSTITUTO DE INVESTIGACION BIOTECNOLOGICA COSMETICA",
+                "email": "administracion@iinbic.com",
+                "phone": "+525513046514",
+                "approval_status": "rejected",
+                "credit": {
+                    "credit_limit": 0,
+                    "credit_used": 0
+                },
+                "address": {
+                    "street": "GALEANA",
+                    "external_number": "144",
+                    "area": "Santa Fe",
+                    "city": "Álvaro Obregón",
+                    "state": "Ciudad de México",
+                    "postal_code": "01210",
+                    "country": "Mexico"
+                },
+                "rfc_id": "IIB160127RP1",
+                "foundation_date": 2016,
+                "requested_amount": 50000,
+                "annual_revenue_current_year": 3000000,
+                "sub_status": "additional_information_required"
                 }
             ],
             "orders": [
-                {"buyer_account": "buy_123", "amount": 50000, "payment_status": "pristine"}
+                {
+                "buyer_account": "buy_6978320898.8846",
+                "amount": 320000,
+                "payment_status": "completed_late",
+                "created": 1734659051,
+                "external_order_id": "COT #28689",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 313505.48
+                },
+                {
+                "buyer_account": "buy_2186917711.4727",
+                "amount": 8014,
+                "payment_status": "completed_late",
+                "created": 1736285243,
+                "external_order_id": "28842",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 7851.32
+                },
+                {
+                "buyer_account": "buy_2186917711.4727",
+                "amount": 11100,
+                "payment_status": "completed_late",
+                "created": 1736522058,
+                "external_order_id": "28920",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 10874.67
+                },
+                {
+                "buyer_account": "buy_4139016637.5655",
+                "amount": 2750,
+                "payment_status": "completed_on_time",
+                "created": 1736956134,
+                "external_order_id": "OV 24292",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 2694.18
+                },
+                {
+                "buyer_account": "buy_2186917711.4727",
+                "amount": 10500,
+                "payment_status": "completed_late",
+                "created": 1737384627,
+                "external_order_id": "24368",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 10286.85
+                },
+                {
+                "buyer_account": "buy_6650742974.9102",
+                "amount": 12900,
+                "payment_status": "completed_on_time",
+                "created": 1737412541,
+                "external_order_id": "24376",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 12638.17
+                },
+                {
+                "buyer_account": "buy_6650742974.9102",
+                "amount": 23494.49,
+                "payment_status": "completed_on_time",
+                "created": 1737412890,
+                "external_order_id": "24372",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 23017.63
+                },
+                {
+                "buyer_account": "buy_6650742974.9102",
+                "amount": 301888.9,
+                "payment_status": "completed_on_time",
+                "created": 1737413029,
+                "external_order_id": "24373",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 295761.52
+                },
+                {
+                "buyer_account": "buy_6650742974.9102",
+                "amount": 38334.8,
+                "payment_status": "completed_on_time",
+                "created": 1737413101,
+                "external_order_id": "24377",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 37556.73
+                },
+                {
+                "buyer_account": "buy_4139016637.5655",
+                "amount": 4926.74,
+                "payment_status": "completed_on_time",
+                "created": 1737424165,
+                "external_order_id": "OV 24395",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_amount": 4826.73
+                }
             ],
             "payouts": [
-                {"amount": 45000, "payout_date": 1234567890}
+                {
+                "amount": 7851.32,
+                "payout_date": 1738866140,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_92a0783fed59e5db4c44aa5cf2379e11"
+                },
+                {
+                "amount": 10874.67,
+                "payout_date": 1739212444,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_8b2424d1b9e4e76a77012cbe2ed30af9"
+                },
+                {
+                "amount": 2694.18,
+                "payout_date": 1739557127,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_c170ebd6770a3593770419a5f27483d5"
+                },
+                {
+                "amount": 313505.48,
+                "payout_date": 1739816995,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_d2c801b24087227d782cd0853a61d8bb"
+                },
+                {
+                "amount": 15113.58,
+                "payout_date": 1739989107,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_767d990ed2e4f89052896c445e4df049"
+                },
+                {
+                "amount": 11085.25,
+                "payout_date": 1740075395,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_f07be59b73d901d3afafed6621491d9f"
+                },
+                {
+                "amount": 382771.76,
+                "payout_date": 1741025804,
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "status": "completed",
+                "payout_id": "payout_40767a31f81076f8b842d6f0e80c6d9c"
+                }
             ],
             "payment_links": [
-                {"cart_total": 25000, "expires": 1234567890}
+                {
+                "buyer_account": "buy_6978320898.8846",
+                "cart_total": 320000,
+                "expires": 1735603200,
+                "external_order_id": "COT #28689",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "description": "MATERIAS PRIMAS",
+                "status": 0,
+                "created": 1734650256
+                },
+                {
+                "buyer_account": "buy_2186917711.4727",
+                "cart_total": 8014,
+                "expires": 1738281600,
+                "external_order_id": "28842",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "description": "20 Kg de Glucosamina malla 40",
+                "status": 0,
+                "created": 1736285076
+                },
+                {
+                "buyer_account": "buy_2186917711.4727",
+                "cart_total": 11100,
+                "expires": 1738281600,
+                "external_order_id": "28920",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "description": "MATERIA PRIMA",
+                "status": 0,
+                "created": 1736521942
+                },
+                {
+                "buyer_account": "buy_4139016637.5655",
+                "cart_total": 2750,
+                "expires": 1739577600,
+                "external_order_id": "OV 24292",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "description": "YERBAMATE",
+                "status": 0,
+                "created": 1736955367
+                },
+                {
+                "buyer_account": "buy_6650742974.9102",
+                "cart_total": 301888.9,
+                "expires": 1740700800,
+                "external_order_id": "24373",
+                "merchant_account": "mer_1733158748.482",
+                "currency": "MXN",
+                "description": "OC P0037",
+                "status": 0,
+                "created": 1737395614
+                }
             ]
-        },
+            },
         "user": {"role": request_data.get("role", "admin")},
         "conversation_history": request_data.get("conversation_history", [])
     }
