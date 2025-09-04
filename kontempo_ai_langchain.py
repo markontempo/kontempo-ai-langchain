@@ -56,7 +56,7 @@ def summarize_merchant_data(data: Dict) -> str:
         payment_links = data.get('payment_links', [])
 
         # Calcular métricas clave
-        active_clients = [b for b in buyers if b.get('credit', {}).get('credit_limit', 0) > 0]
+        active_clients = [b for b in buyers if b.get('approval_status') == 'active']
         total_credit_issued = sum(b.get('credit', {}).get('credit_limit', 0) for b in active_clients)
         total_credit_used = sum(b.get('credit', {}).get('credit_used', 0) for b in active_clients)
         utilization = (total_credit_used / total_credit_issued * 100) if total_credit_issued > 0 else 0
