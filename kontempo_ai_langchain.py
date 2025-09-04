@@ -8,6 +8,7 @@ from langchain_core.runnables import RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
 from langserve import add_routes
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 from typing import List, Dict
 import json
@@ -147,6 +148,17 @@ app = FastAPI(
     title="Kontempo AI with LangChain",
     version="1.0",
     description="AI Assistant for Kontempo merchants using LangChain",
+)
+
+app = FastAPI(title="Kontempo AI", description="AI Assistant for Kontempo merchants")
+
+# Agregar CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # En producción, especifica dominios específicos
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 # Crear el chain
