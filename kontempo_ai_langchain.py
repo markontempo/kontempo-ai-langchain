@@ -211,6 +211,7 @@ async def chat_endpoint(request_data: Dict):
         
         return {
             "response": response,
+            "merchant_summary": processed_input["merchant_summary"],
             "timestamp": 1234567890,
             "model": "Kontempo AI with LangChain",
             "status": "success"
